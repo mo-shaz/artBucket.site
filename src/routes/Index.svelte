@@ -71,7 +71,7 @@
 
     :global(body) {
         background-color: black;
-        background-image: url(./purple.svg);
+        background-image: url(../static/purple.svg);
         background-attachment: fixed;
     }
 
