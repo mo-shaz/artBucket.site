@@ -1,3 +1,3 @@
-#FrontEnd for artBucket.com
+# FrontEnd for artBucket.com
 
 built using Svelte :-D
