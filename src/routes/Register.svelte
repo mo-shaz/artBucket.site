@@ -1,9 +1,27 @@
 <script lang="ts">  
 
-    let email = 'impostor@amongus.com';
+    // The Modal to show data is being processed
+    import Modal from '../components/Modal.svelte'
+    let modal;
+
+    // Loading SVG
+    import Loading from "../components/Loading.svelte"
+
+    // For showing response status in the modal
+    let response: string;
+    let responseMessage: string;
+    
+    // The stored invite variable 
+    import { emailInvite } from '../stores.js'
+    let email: string;
+    email = $emailInvite;
+
+    // The stores url and api variables
+    import { url, api } from "../stores.js"
 
     // The object that holds the form values
     let formValue = {
+        email: email,
         userName: "",
         storeName: "",
         title: "",
@@ -14,6 +32,7 @@
     // Text Field Error Handling //
     // Object that contains the error messages
     let errors = {
+            email: "",
             userName: "",
             storeName: "",
             title: "",
@@ -30,8 +49,56 @@
             confirmPassword: ""
         }
 
+    
+    // The API call function
+    async function registerToApi(formValue) {
+
+            // Make the request using the JavaScript fetch API
+            const responseFromApi = await fetch(`${$api}/register`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formValue)
+            })
+
+            // Return the response from API and parse it as JSON
+            return responseFromApi.json()
+        }
+
+    
+    // Function to set messages according to response
+    async function handleResponse(data) {
+
+            // If response contains errors
+            if (data.error) {
+                // Show message after a short animation delay
+                responseMessage = data.error
+                setTimeout(() => { response = "NOT" }, 1500)
+
+            } else if (data.success) {
+
+                setTimeout(() => { 
+                // Show message after a short animation delay
+                    response = "OK" 
+
+                    // Redirect to login
+                    setTimeout(() => { window.location.replace(`${$url}/login`) 
+
+                    }, 2000)
+
+                }, 1500)
+
+            }
+
+        }
+    
+
     // Function that handles the submit
-    function handleSubmit(formValue) {
+    async function handleSubmit(formValue: object) {
+        
+        // Reset the Modal state before every submir
+        response = ""
+        responseMessage = ""
         
         // Check the username length and show appropriate warnings
         for (let value in formValue) {
@@ -50,7 +117,7 @@
         
         // Check if the password fields match
         if (formValue.password !== formValue.confirmPassword) errors.confirmPassword = "mismatch"
-    
+
         // Logic to make sure there are no errors before passing the data to server
         let noErrorFlag = 0
 
@@ -64,18 +131,28 @@
 
         // Finally make the API call if everything checks out
         if (noErrorFlag === 0) {
-            window.alert('Less goo!')
+
+            // Show the loading Modal
+            modal.show()
+
+            // Make the API call
+            registerToApi(formValue)
+            .then(data => { handleResponse(data) })
         }
         
     } 
 
 </script>
 
+<svelte:head>
+    <title>register: create yourself</title>
+</svelte:head>
+
 <body>
 
     <main class="container">
 
-    {#if email}
+    {#if email !== ""}
 
         <div class="heading">
             <h2>be a part of us</h2>
@@ -84,7 +161,9 @@
         <form class="form-body" on:submit|preventDefault={ handleSubmit(formValue) }>
 
             <div class="input-body">
-                <label class="label" for="email">email</label>
+                <label class="label" for="email">email
+                    <span class="error">{errors.email}</span>
+                </label>
                 <span class="email">{email}</span>
             </div>
 
@@ -129,6 +208,28 @@
 
         </form>
 
+        <Modal bind:this={modal}>
+    
+            {#if response == 'OK'}
+
+                <h2 class="heading" style="color: green">welcome artist</h2>
+                <p class="modal-message">redirecting you to login page</p>
+
+            {:else if response == 'NOT'}
+
+                <h2 class="heading" style="color: orangered">uh-oh !</h2>
+                <p class="modal-message">looks like {responseMessage}</p>
+
+            {:else}
+
+            <h2 class="modal-heading">hold up</h2>
+            <Loading/>
+            <p class="modal-message">making sure eveything's alright</p>
+
+            {/if}
+
+            </Modal>
+
     {:else}
 
         <div class="form-body">
@@ -161,7 +262,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-bottom: 10%;
+        margin: 10%;
     }
 
     .form-body {
@@ -229,6 +330,13 @@
         background-color: black;
         padding: 2px 9px 2px 9px;
         border-radius: 10px;
+    }
+
+    .modal-message, .modal-heading {
+        font-family: 'Share Tech Mono', monospace;
+        padding: 0;
+        margin: 0px 10px;
+        text-align: center;
     }
 
     .oops-message {

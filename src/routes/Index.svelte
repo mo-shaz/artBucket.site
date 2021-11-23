@@ -59,7 +59,7 @@
         </div>
         <div class="link-container">
             <p class="invite">want to be a part of us?</p>
-            <a href="/register" class="button">join artBucket</a>
+            <a href="/join" class="button">join artBucket</a>
         </div>
     </main>
 </body>
@@ -93,7 +93,7 @@
 
     h1 {
         color: yellow;
-        font-family: 'Yuji Syuku';
+        font-family: 'Yuji Syuku', sans-serif;
     }
 
     h4 {

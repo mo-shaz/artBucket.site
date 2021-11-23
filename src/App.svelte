@@ -2,6 +2,8 @@
     import { Router, Route } from "svelte-navigator";
     import Index from "./routes/Index.svelte";
     import Register from "./routes/Register.svelte";
+    import Join from "./routes/Join.svelte";
+    import Invites from "./routes/Invites.svelte";
 </script>
 
 <Router>
@@ -12,6 +14,14 @@
 
     <Route path='/register'>
         <Register/>
+    </Route>
+
+    <Route path='/join'>
+        <Join/>
+    </Route>
+
+    <Route path='/invites'>
+        <Invites/>
     </Route>
 
 </Router>
