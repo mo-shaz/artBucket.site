@@ -4,6 +4,7 @@
     import Register from "./routes/Register.svelte";
     import Join from "./routes/Join.svelte";
     import Invites from "./routes/Invites.svelte";
+    import Login from "./routes/Login.svelte"
 </script>
 
 <Router>
@@ -22,6 +23,10 @@
 
     <Route path='/invites'>
         <Invites/>
+    </Route>
+
+    <Route path='/login'>
+        <Login/>
     </Route>
 
 </Router>

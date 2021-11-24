@@ -96,7 +96,7 @@
     // Function that handles the submit
     async function handleSubmit(formValue: object) {
         
-        // Reset the Modal state before every submir
+        // Reset the Modal state before every submit
         response = ""
         responseMessage = ""
         
