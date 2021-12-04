@@ -7,6 +7,7 @@
     import Modal from '../components/Modal.svelte'
     let modal;
     let responseModal: string;      // to convey the server response in the Modal 
+    let responseMessage: string;    // to convey the error message
 
     // Loading SVG
     import Loading from "../components/Loading.svelte"
@@ -77,6 +78,7 @@
             let response = await fetch(`${$api}/login`, {
                 method: 'POST',
                 mode: 'cors',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formValue)
             })
@@ -88,7 +90,9 @@
             if (response.success) setTimeout(() => { window.location.replace(`${$url}/dashboard`) }, 1000) 
 
             // If login fails, show warning
-            if (response.error) setTimeout(() => { responseModal = "NOT" }, 1500) 
+            if (response.error) setTimeout(() => { 
+                responseMessage = response.error
+                responseModal = "NOT" }, 1500) 
             
         }
         
@@ -134,7 +138,7 @@
 
             <h2 class="modal-heading">uh-oh</h2>
             <span class="cross-mark">&times;</span>
-            <p class="modal-message">invalid username or password</p>
+            <p class="modal-message">{responseMessage}</p>
 
         {:else}
 

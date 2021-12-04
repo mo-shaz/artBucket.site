@@ -5,6 +5,7 @@
     import Join from "./routes/Join.svelte";
     import Invites from "./routes/Invites.svelte";
     import Login from "./routes/Login.svelte"
+    import Dashboard from "./routes/Dashboard.svelte"
 </script>
 
 <Router>
@@ -27,6 +28,10 @@
 
     <Route path='/login'>
         <Login/>
+    </Route>
+
+    <Route path='/dashboard'>
+        <Dashboard/>
     </Route>
 
 </Router>
