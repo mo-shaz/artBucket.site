@@ -17,7 +17,7 @@
     email = $emailInvite;
 
     // The stores url and api variables
-    import { url, api } from "../stores.js"
+    import { api } from "../stores.js"
 
     // The object that holds the form values
     let formValue = {
@@ -82,7 +82,7 @@
                     response = "OK" 
 
                     // Redirect to login
-                    setTimeout(() => { window.location.replace(`${$url}/login`) 
+                    setTimeout(() => { window.location.replace('/login') 
 
                     }, 2000)
 

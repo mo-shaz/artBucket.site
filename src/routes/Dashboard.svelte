@@ -1,12 +1,62 @@
 <script lang="ts">
+
+    // individual Product Modal
     import Product from "../components/Product.svelte"
     let product;
+
+    // Loading Modal
+    import Loading from "../components/Loading.svelte"
+
+    // Invite Modal
+    import InviteModal from "../components/InviteModal.svelte"
+    let inviteModal;
+
+    // API URL
+    import { api } from "../stores.js"
+
     const postDetails = {
         name: "a Blue Orange",
         price: "healthy kidney",
         desc: "nothing fancy, not tasty, diarrhea",
         image: "yay"
     }
+
+    // Dashboard info
+    let dashInfo: object;
+
+    // Fetch Dashboard Info
+    async function fetchDash() {
+        
+        let response = await fetch(`${$api}/dashboard`, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        })
+
+        // JSONify
+        response = await response.json()
+        
+        // Check for response type
+        if (response.success) {
+
+            // Set the dashInfo object
+            const data = response.success
+            dashInfo = await data
+
+        } else {
+
+            // redirect to Login
+            window.location.replace('/login')            
+
+        }
+
+    }
+
+    ///////////////////////////////////
+    //         DEV-DEPENDANCY       //
+    /////////////////////////////////
+    setTimeout(() => fetchDash(), 1000)
+
 </script>
 
 <svelte:head>
@@ -14,15 +64,34 @@
 </svelte:head>
 
 <body>
+
+    {#if dashInfo === undefined}
+
+    <div class="modal-wrap">
+        <div class="modal">
+            <h3>getting your stuff</h3>
+            <Loading/>
+        </div>
+    </div>
+
+    {:else}
+
     <main class="container">
 
     <div class="about">
-        <h3>fury-store</h3>
+        <h3>{dashInfo.storeName}</h3>
+        <label for="check" class="check-label"></label>
+        <input type="checkbox" id="check" class="check">
+        <div class="drop">
+	    <li><p on:click={() => window.alert('edit me')}>edit profile</p></li>
+	    <li><p style="color: teal" on:click={() => inviteModal.show()}>send invite</p></li>
+                <li><a href="/login">logout</a></li>
+        </div>
     </div>
     <div class="info">
-        <img class="img" src="https://images.unsplash.com/photo-1637047692446-7138e684849a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=395&q=80" alt="">
+        <img class="img" src="https://images.unsplash.com/photo-1637047692446-7138e684849a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=395&q=80" alt="user-profile-picture">
             <div class="posts">
-                <h3>7</h3>
+                <h3>{dashInfo.products.length}</h3>
                 <span>products</span>
             </div>
             <div class="visits">
@@ -32,18 +101,17 @@
     </div>
     <div class="contact">
         <div class="description">
-            <h4>shax</h4>
-            <p>frustrated, unemployed engineer</p>
+            <h4>{dashInfo.userName}</h4>
+            <p>{dashInfo.title}</p>
         </div>
         <div class="logo">
             <img class="wapp-logo" src="../static/whatsapp.svg" alt="whatsapp logo">
             <img class="insta-logo" src="../static/instagram.svg" alt="instagram logo">
         </div>
         <div class="details">
-            <span class="whatsapp">9995982023</span>
-            <span class="instagram">shaz.exe</span>
+            <span class="whatsapp">{dashInfo.whatsapp}--</span>
+            <span class="instagram">{dashInfo.instagram}--</span>
         </div>
-        <button class="btn">edit profile</button>
     </div>
 
     <section class="photo-grid">
@@ -63,7 +131,13 @@
     <Product bind:this={product}>
     </Product>
 
+    <InviteModal bind:this={inviteModal}>
+    </InviteModal>
+
     </main>
+
+    {/if}
+
 </body>
 
 <style>
@@ -90,11 +164,18 @@
     }
 
     .about {
+        display: flex;
+        width: 100%;
         background: white;
         padding: .5rem;
         border-radius: .75rem;
         margin-bottom: .25rem;
+	position: relative;
+    }
+
+    .about h3 {
         text-align: center;
+        margin-left: auto;
     }
 
     .info {
@@ -110,18 +191,18 @@
         height: 90px;
         object-fit: cover;
         grid-column: 1/3;
-        border-radius: 50%;
+        border-radius: .5rem;
     }
 
     .posts {
         text-align: center;
-        grid-column: 4/6;
+        grid-column: 5/6;
         align-self: center;
     }
 
     .visits {
         text-align: center;
-        grid-column: 6/9;
+        grid-column: 7/9;
         align-self: center;
     }
 
@@ -168,14 +249,6 @@
         height: 20px;
     }
 
-    .btn {
-        width: 100%;
-        border-radius: 1rem;
-        padding: .25rem;
-        margin-top: .25rem;
-        cursor: pointer;
-    }
-
     .description {
         margin-bottom: 1rem;
         border: 1px solid black;
@@ -218,6 +291,76 @@
 
     .click {
         cursor: pointer;
+    }
+
+    .modal-wrap {
+        position: fixed;
+        display: grid;
+        place-items: center;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .modal {
+        background-color: white;
+        padding: 0;
+        margin: 0;
+        border-radius: 10px;
+        max-width: 69vw;
+        width: 500px;
+        max-height: 60vh;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Share Tech Mono', monospace;
+    }
+
+    .check {
+        display: none;
+    }
+
+    .check-label {
+        width: 25px;
+        background-repeat: no-repeat;
+        background-image: url('../static/user.svg');
+        margin-left: auto;
+	cursor: pointer;
+    }
+
+    .check:checked ~ .drop {
+        display: block;
+    }
+
+    .drop {
+        display: none;
+        position: absolute;
+        right: 0;
+	top: 2rem;
+	background-color: white;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 1rem;
+	padding: 1rem;
+	list-style: none;
+    }
+
+    .drop li {
+	padding: .5rem;
+	border-radius: .5rem;
+	cursor: pointer;
+    }
+
+    .drop a{
+	    color: orangered;
+	    text-decoration: none;
+    }
+
+    .drop li:hover {
+	background-color: #ddd;
     }
 
 </style>

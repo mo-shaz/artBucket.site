@@ -24,8 +24,9 @@
             if (response.ok) {
 
                 // Make sure the response is a success
-                const data = await response.json() - 1;
-                changeCount(data)
+                const data = await response.json()
+                const responseCount = Number(data.success) - 1
+                changeCount(responseCount)
 
             } else {
                 console.log({ error: 'no response' })

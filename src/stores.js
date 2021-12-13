@@ -1,7 +1,5 @@
 import { writable, readable } from 'svelte/store'
 
-// The site url
-export const url = readable("http://localhost:5000")
 
 // The server url
 export const api = readable("http://localhost:8080")
