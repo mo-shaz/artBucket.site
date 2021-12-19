@@ -67,8 +67,15 @@
 
 <style>
 
-    @import url('https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    @font-face {
+        font-family: 'Yuji Syuku';
+        src: url(../static/fonts/YujiSyuku-Regular.ttf);
+    }
+
+    @font-face {
+        font-family: 'Share Tech Mono';
+        src: url(../static/fonts/ShareTechMono-Regular.ttf);
+    }
 
     :global(body) {
         background-color: black;

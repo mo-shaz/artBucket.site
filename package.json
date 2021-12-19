@@ -13,6 +13,9 @@
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
     "@tsconfig/svelte": "^2.0.0",
+    "postcss": "^8.4.5",
+    "postcss-import": "^14.0.2",
+    "postcss-load-config": "^3.1.0",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -25,6 +28,9 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "@uppy/instagram": "^2.0.5",
+    "@uppy/svelte": "^1.0.6",
+    "@uppy/xhr-upload": "^2.0.7",
     "sirv-cli": "^1.0.0",
     "svelte-navigator": "^3.1.5"
   }

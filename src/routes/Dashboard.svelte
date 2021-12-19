@@ -2,14 +2,18 @@
 
     // individual Product Modal
     import Product from "../components/Product.svelte"
-    let product;
+    let product
 
     // Loading Modal
     import Loading from "../components/Loading.svelte"
 
     // Invite Modal
     import InviteModal from "../components/InviteModal.svelte"
-    let inviteModal;
+    let inviteModal
+
+    // the EditProfile component
+    import EditProfile from "../components/EditProfile.svelte"
+    let editProfile
 
     // API URL
     import { api } from "../stores.js"
@@ -22,7 +26,7 @@
     }
 
     // Dashboard info
-    let dashInfo: object;
+    let dashInfo: object
 
     // Fetch Dashboard Info
     async function fetchDash() {
@@ -83,13 +87,13 @@
         <label for="check" class="check-label"></label>
         <input type="checkbox" id="check" class="check">
         <div class="drop">
-	    <li><p on:click={() => window.alert('edit me')}>edit profile</p></li>
-	    <li><p style="color: teal" on:click={() => inviteModal.show()}>send invite</p></li>
+	    <li><p on:click={() => editProfile.show(dashInfo)}>edit profile</p></li>
+	    <li><p style="color: teal" on:click={() => inviteModal.show(dashInfo.storeName)}>send invite</p></li>
                 <li><a href="/login">logout</a></li>
         </div>
     </div>
     <div class="info">
-        <img class="img" src="https://images.unsplash.com/photo-1637047692446-7138e684849a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=395&q=80" alt="user-profile-picture">
+        <img class="img" src={dashInfo.profile} alt="user-profile-picture">
             <div class="posts">
                 <h3>{dashInfo.products.length}</h3>
                 <span>products</span>
@@ -115,21 +119,18 @@
     </div>
 
     <section class="photo-grid">
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'>
-    </section>
+        {#each Array(3) as _}
+            <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a fucking plane">
+            <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a blue orange">
+            <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="sea">
+            {/each}
+   </section>
 
     <Product bind:this={product}>
     </Product>
+
+    <EditProfile bind:this={editProfile}>
+    </EditProfile>
 
     <InviteModal bind:this={inviteModal}>
     </InviteModal>
@@ -362,5 +363,34 @@
     .drop li:hover {
 	background-color: #ddd;
     }
+
+    /* if a change to flex-box is needed */
+    /**/
+    /* .info { */
+    /*     display: flex; */
+    /*     background: white; */
+    /*     border-radius: 1rem; */
+    /*     padding: .5rem; */
+    /* } */
+    /**/
+    /* .img { */
+    /*     width: 90px; */
+    /*     height: 90px; */
+    /*     object-fit: cover; */
+    /*     border-radius: .5rem; */
+    /* } */
+    /**/
+    /* .posts { */
+    /*     text-align: center; */
+    /*     align-self: center; */
+    /*     margin-left: auto; */
+    /* } */
+    /**/
+    /* .visits { */
+    /*     text-align: center; */
+    /*     align-self: center; */
+    /*     margin-left: auto; */
+    /* } */
+    /**/
 
 </style>

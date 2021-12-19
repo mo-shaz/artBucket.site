@@ -4,10 +4,13 @@
     import { api } from "../stores.js"
 
     // for loading Modal
-    import Modal from "../components/Modal.svelte"
-    import Loading from "../components/Loading.svelte"
+    import Modal from "./Modal.svelte"
+    import Loading from "./Loading.svelte"
 
     let modal
+
+    // to show the reponse in the loading Modal
+    let serverResponse = {}
 
     // for showing and hiding the Modal
     let shown = false
@@ -18,15 +21,17 @@
 
     // the data to be sent to the server
     let formValue = {
-        inviteEmail: ""
+        inviteEmail: "",
+        invitedBy: ""
     }
 
     // function that performs the necessary input validity checks
     async function handleSubmit(formValue) {
 
-        // reset the border-color and error-message
+        // reset the border-color, modal-message and error-message
         border = ""
         errorMessage = ""
+        serverResponse = {}
 
         // check the length of input
         if (formValue.inviteEmail.length < 4) {
@@ -60,14 +65,15 @@
             body: JSON.stringify(formValue)
         })
         
-        response = await response.json()
-        console.log(response)
-        
+        serverResponse = await response.json()        
     }
 
     // show and hide the Modal
-    export function show() {
+    export function show(invitedBy: string) {
         shown = true
+
+        // set the invited by field(to be sent to the server)
+        formValue.invitedBy = invitedBy
     }
 
     export function hide() {
@@ -93,8 +99,20 @@
     </div>
 
     <Modal bind:this={modal}>
-        <h3>running some checks</h3>
-        <Loading/>
+        {#if serverResponse.success}
+            <h2>woohoo!</h2>
+            <p class="tick-mark">&check;</p>
+            <p>invite sent successfully</p>
+        {:else if serverResponse.error}
+            <h2>oops</h2>
+            <p class="cross-mark">&times;</p>
+            <p>looks like {serverResponse.error}</p>
+        {:else}
+            <div class="loading-div">
+                <h3>running some checks</h3>
+                <Loading/>
+            </div>
+        {/if}
     </Modal>
 
 {/if}
@@ -173,6 +191,34 @@
 
     .border-error {
         outline: 2px solid red;
+    }
+    
+    .tick-mark {
+        padding: 0;
+        margin: 20px;
+        transform: scale(2.5);
+        color: green;
+    }
+
+    .cross-mark {
+        padding: 0;
+        margin: 20px;
+        transform: scale(2.5);
+        color: orangered;
+    }
+
+    h2, h3, p {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .loading-div {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
     }
 
 </style>

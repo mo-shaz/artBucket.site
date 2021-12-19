@@ -252,11 +252,6 @@
 
 <style>
 
-    /* body { */
-    /*     min-height: 100vh; */
-    /*     height: 100%; */
-    /* } */
-
     .container {
         display: flex;
         flex-direction: column;
