@@ -62,7 +62,9 @@ export default {
 			browser: true,
 			dedupe: ['svelte']
 		}),
-		commonjs(),
+            commonjs({
+                transformMixedEsModules: true
+            }),
 		typescript({
 			sourceMap: !production,
 			inlineSources: !production
