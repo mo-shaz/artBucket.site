@@ -71,9 +71,7 @@
 
 <style global>
 
-    @import "@uppy/core/dist/style.min.css";
-    @import "@uppy/dashboard/dist/style.min.css";
-    @import "@uppy/drag-drop/dist/style.min.css";
-    @import "@uppy/progress-bar/dist/style.min.css";
+    @import url('../../public/static/styles/uppy/core.min.css');
+    @import url('../../public/static/styles/uppy/dashboard.min.css');
 
 </style>
