@@ -8,6 +8,9 @@
     import ImageUpload from "./UploadImage.svelte"
     let imageUpload
 
+    // API and Profile Picture URL
+    import { api, profileUrl } from "../stores.js"
+
     // to change the state of loading
     let modal
 
@@ -109,7 +112,7 @@
     <div class="modal-wrap">
         <div class="modal">
             <div class="profile-view">
-                <img class="profile-img" src={profileDetails.profile} alt="profile picture" on:click={() => imageUpload.show(uppyClient)}>
+                <img class="profile-img" src={$profileUrl} alt="profile picture" on:click={() => imageUpload.show(uppyClient)}>
                 <div class="inside-view"><p>click on the image to change your profile picture.</p></div>
             </div>
             <form class="form-body" on:submit|preventDefault={ handleSubmit(profileDetails) }>

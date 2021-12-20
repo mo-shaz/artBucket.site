@@ -15,8 +15,8 @@
     import EditProfile from "../components/EditProfile.svelte"
     let editProfile
 
-    // API URL
-    import { api } from "../stores.js"
+    // API URL and Profile Picture URL
+    import { api, profileUrl } from "../stores.js"
 
     const postDetails = {
         name: "a Blue Orange",
@@ -46,6 +46,10 @@
             // Set the dashInfo object
             const data = response.success
             dashInfo = await data
+
+            // Set the profile picture url to a store
+            // Why? For reactivity
+            $profileUrl = dashInfo.profile
 
         } else {
 
@@ -93,7 +97,7 @@
         </div>
     </div>
     <div class="info">
-        <img class="img" src={dashInfo.profile} alt="user-profile-picture">
+        <img class="img" src={$profileUrl} alt="user-profile-picture">
             <div class="posts">
                 <h3>{dashInfo.products.length}</h3>
                 <span>products</span>

@@ -5,8 +5,8 @@
     import Instagram from '@uppy/instagram'
     import XHR from '@uppy/xhr-upload'
 
-    // API End-point
-    import { api } from "../stores.js"
+    // API End-point and Profile Pic URL
+    import { api, profileUrl } from "../stores.js"
 
     // an object for server-side process
     let uppyToServer: object;
@@ -33,8 +33,17 @@
     let uppy = createUppy() 
     let open = false;
 
+    // add extra data for server process
     uppy.on('file-added', (file) => {
         uppy.setFileMeta(file.id, uppyToServer)
+    })
+
+    // get the response url of the image
+    uppy.on('upload-success', (file, response) => {
+        const httpBody = response.body
+
+        // set the Profile Pic Global Variable
+        $profileUrl = httpBody.success
     })
 
 
