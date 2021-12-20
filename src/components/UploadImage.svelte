@@ -71,7 +71,7 @@
 
 <style global>
 
-    @import url('../../public/static/styles/uppy/core.min.css');
-    @import url('../../public/static/styles/uppy/dashboard.min.css');
+    /* @import url('../../public/static/styles/uppy/core.min.css'); */
+    /* @import url('../../public/static/styles/uppy/dashboard.min.css'); */
 
 </style>
