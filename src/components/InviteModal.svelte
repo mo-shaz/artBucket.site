@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    // the API endppoint url
-    import { api } from "../stores.js"
+    // the API endppoint url and storeName
+    import { api, reactiveStoreName } from "../stores.js"
 
     // for loading Modal
     import Modal from "./Modal.svelte"
@@ -69,11 +69,11 @@
     }
 
     // show and hide the Modal
-    export function show(invitedBy: string) {
+    export function show() {
         shown = true
 
         // set the invited by field(to be sent to the server)
-        formValue.invitedBy = invitedBy
+        formValue.invitedBy = $reactiveStoreName
     }
 
     export function hide() {

@@ -8,14 +8,20 @@
     import ImageUpload from "./UploadImage.svelte"
     let imageUpload
 
-    // API and Profile Picture URL
-    import { api, profileUrl } from "../stores.js"
+    // API and the reactive profile info from the store
+    import { 
+        api, 
+        reactiveId,
+        profileUrl,
+        reactiveStoreName,
+        reactiveUserName,
+        reactiveTitle,
+        reactiveWhatsapp,
+        reactiveInstagram
+    } from "../stores.js"
 
     // to change the state of loading
     let modal
-
-    // to show state of response
-    let responseFromServer = {}
 
     // function to show and hide the modals
     let shown = false
@@ -26,21 +32,22 @@
     // an object for the Uppy Image Uploader
     let uppyClient: object
 
+    // an object as the server response
+    let serverResponse: object
 
     // function to hide and show the modals on click
     export function hide() {
         shown = false
     }
 
-    export function show(dashInfo) {
+    export function show() {
         // copy the details
         profileDetails = {
-            userName: dashInfo.userName,
-            storeName: dashInfo.storeName,
-            title: dashInfo.title,
-            whatsapp: dashInfo.whatsapp,
-            instagram: dashInfo.instagram,
-            profile: dashInfo.profile
+            userName: $reactiveUserName,
+            storeName: $reactiveStoreName,
+            title: $reactiveTitle,
+            whatsapp: $reactiveWhatsapp,
+            instagram: $reactiveInstagram
         }
 
         // show the Modal
@@ -48,7 +55,7 @@
 
         // set the value for the Uppy thing
         uppyClient = {
-            profileId: dashInfo.id
+            profileId: $reactiveId
         }
     }
 
@@ -67,6 +74,24 @@
         title: "",
         whatsapp: "",
         instagram: ""
+    }
+
+    // function that makes the API call
+    const updateData = async () => {
+
+        // Fetch the data
+        let response = await fetch(`${$api}/profile`, {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(profileDetails)
+        })
+
+        // Jsonify
+        const data = await response.json()
+
+        return data
     }
 
     // function that handles the submission of data
@@ -100,9 +125,23 @@
 
         // make API call only if the errorFlag is zero
         if (errorFlag === 0) {
-            console.log('YAY')
-            window.alert('UPDATED')
-        }        
+        
+            // show loading modal
+            modal.show()
+
+            serverResponse = await updateData()       
+            
+            // then update the details on the clientside
+            if (serverResponse.success) {
+
+                $reactiveUserName = serverResponse.success.userName
+                $reactiveStoreName = serverResponse.success.storeName
+                $reactiveTitle = serverResponse.success.title
+                $reactiveWhatsapp = serverResponse.success.whatsapp
+                $reactiveInstagram = serverResponse.success.instagram
+            }
+         
+        }
     }
 
 </script>
@@ -152,6 +191,22 @@
     </div>
 
     <ImageUpload bind:this={imageUpload} />
+    <Modal bind:this={modal}>
+        {#if serverResponse}
+            {#if serverResponse.success}
+                <span class="tick-mark">&check;</span>
+                <h4>updated successfully</h4>
+                <button class="btn-plain" on:click={() => modal.hide()}>okay</button>
+            {:else if serverResponse.error}
+                <span class="cross-mark">&times;</span>
+                <h4>{serverResponse.error}</h4>
+                <button class="btn-plain" on:click={() => modal.hide()}>okay</button>
+            {/if}
+        {:else}
+            <h3>updating profile</h3>
+            <Loading/>
+        {/if}
+    </Modal>
 
 {/if}
 
@@ -260,6 +315,35 @@
         border-radius: .5rem;
         margin-bottom: 1rem;
         cursor: pointer;
+    }
+
+    .tick-mark {
+        transform: scale(2.5);
+        color: green;
+    }
+
+    .cross-mark {
+        transform: scale(2.5);
+        color: orangered;
+    }
+
+    .btn-plain {
+        width: 200px;
+        color: white;
+        background-color: black;
+        border: 1px solid black;
+        border-radius: .5rem;
+    }
+
+    .btn-plain:hover {
+        color: black;
+        background-color: white;
+        border: 1px solid white;
+    }
+
+    h4 {
+        text-align: center;
+        margin: 1rem;
     }
 
 

@@ -16,7 +16,16 @@
     let editProfile
 
     // API URL and Profile Picture URL
-    import { api, profileUrl } from "../stores.js"
+    import { 
+        api, 
+        reactiveId,
+        profileUrl,
+        reactiveUserName,
+        reactiveStoreName,
+        reactiveTitle,
+        reactiveWhatsapp,
+        reactiveInstagram
+    } from "../stores.js"
 
     const postDetails = {
         name: "a Blue Orange",
@@ -47,9 +56,15 @@
             const data = response.success
             dashInfo = await data
 
-            // Set the profile picture url to a store
+            // Set the profile details to the store
             // Why? For reactivity
+            $reactiveId = dashInfo.id
             $profileUrl = dashInfo.profile
+            $reactiveUserName = dashInfo.userName
+            $reactiveStoreName = dashInfo.storeName
+            $reactiveTitle = dashInfo.title
+            $reactiveWhatsapp = dashInfo.whatsapp
+            $reactiveInstagram = dashInfo.instagram
 
         } else {
 
@@ -87,12 +102,12 @@
     <main class="container">
 
     <div class="about">
-        <h3>{dashInfo.storeName}</h3>
+        <h3>{$reactiveStoreName}</h3>
         <label for="check" class="check-label"></label>
         <input type="checkbox" id="check" class="check">
         <div class="drop">
-	    <li><p on:click={() => editProfile.show(dashInfo)}>edit profile</p></li>
-	    <li><p style="color: teal" on:click={() => inviteModal.show(dashInfo.storeName)}>send invite</p></li>
+	    <li><p on:click={() => editProfile.show()}>edit profile</p></li>
+	    <li><p style="color: teal" on:click={() => inviteModal.show()}>send invite</p></li>
                 <li><a href="/login">logout</a></li>
         </div>
     </div>
@@ -109,20 +124,21 @@
     </div>
     <div class="contact">
         <div class="description">
-            <h4>{dashInfo.userName}</h4>
-            <p>{dashInfo.title}</p>
+            <h4>{$reactiveUserName}</h4>
+            <p>{$reactiveTitle}</p>
         </div>
         <div class="logo">
             <img class="wapp-logo" src="../static/whatsapp.svg" alt="whatsapp logo">
             <img class="insta-logo" src="../static/instagram.svg" alt="instagram logo">
         </div>
         <div class="details">
-            <span class="whatsapp">{dashInfo.whatsapp}--</span>
-            <span class="instagram">{dashInfo.instagram}--</span>
+            <span class="whatsapp">{$reactiveWhatsapp}</span>
+            <span class="instagram">{$reactiveInstagram}</span>
         </div>
     </div>
 
     <section class="photo-grid">
+    
         {#each Array(3) as _}
             <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a fucking plane">
             <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a blue orange">
