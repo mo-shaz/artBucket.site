@@ -63,7 +63,7 @@ export default {
 			dedupe: ['svelte']
 		}),
             commonjs({
-                transformMixedEsModules: true
+                // transformMixedEsModules: true
             }),
 		typescript({
 			sourceMap: !production,
