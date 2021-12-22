@@ -1,5 +1,8 @@
 <script lang="ts">
 
+    // Transitions
+    import { fade, fly } from "svelte/transition"
+
     // the Modal component to show loading
     import Modal from "./Modal.svelte"
     import Loading from "./Loading.svelte"
@@ -148,8 +151,8 @@
 
 {#if shown}
 
-    <div class="modal-wrap">
-        <div class="modal">
+    <div class="modal-wrap" transition:fade="{{ duration: 100 }}">
+        <div class="modal" transition:fly="{{ y: 100, duration: 200 }}">
             <div class="profile-view">
                 <img class="profile-img" src={$profileUrl} alt="profile picture" on:click={() => imageUpload.show(uppyClient)}>
                 <div class="inside-view"><p>click on the image to change your profile picture.</p></div>

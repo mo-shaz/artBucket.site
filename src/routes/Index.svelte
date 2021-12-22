@@ -61,6 +61,7 @@
         <div class="link-container">
             <p class="invite">want to be a part of us?</p>
             <a href="/join" class="button">join artBucket</a>
+            <a href="/dashboard" class="button">login</a>
         </div>
     </main>
 </body>

@@ -1,5 +1,8 @@
 <script lang="ts">
 
+    // Transitions
+    import { fade } from "svelte/transition"
+
     // the API endppoint url and storeName
     import { api, reactiveStoreName } from "../stores.js"
 
@@ -84,8 +87,8 @@
 
 {#if shown}
 
-    <div class="modal-wrap">
-        <div class="modal">
+    <div class="modal-wrap" transition:fade="{{ duration: 100 }}">
+        <div class="modal" transition:fade="{{ duration: 100 }}">
             <form class="form-body" on:submit|preventDefault={ handleSubmit(formValue) }>
                 <label class="invite" for="invite">invite via e-mail:</label>
                 <input type="text" placeholder="email" class="input-box {border}" bind:value={formValue.inviteEmail}>

@@ -1,4 +1,7 @@
 <script lang="ts">
+
+    // Transition
+    import { fade } from "svelte/transition"
     
     // The toggle variable
     let shown = false;
@@ -17,8 +20,8 @@
 
 {#if shown}
 
-    <div class="modal-wrap">
-        <div class="modal">
+    <div class="modal-wrap" transition:fade="{{ duration: 100 }}">
+        <div class="modal" transition:fade="{{ duration: 100 }}">
             <span class="close-btn" on:click={() => hide()}>&times;</span>
             <slot />
         </div>

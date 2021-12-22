@@ -1,5 +1,8 @@
 <script lang="ts">
 
+    // Transition
+    import { fade } from "svelte/transition"
+
     // individual Product Modal
     import Product from "../components/Product.svelte"
     let product
@@ -90,8 +93,8 @@
 
     {#if dashInfo === undefined}
 
-    <div class="modal-wrap">
-        <div class="modal">
+    <div class="modal-wrap" transition:fade="{{ duration: 100 }}">
+        <div class="modal" transition:fade="{{ duration: 100 }}">
             <h3>getting your stuff</h3>
             <Loading/>
         </div>
@@ -102,6 +105,7 @@
     <main class="container">
 
     <div class="about">
+        <a class="the-logo" href="/">aB</a>
         <h3>{$reactiveStoreName}</h3>
         <label for="check" class="check-label"></label>
         <input type="checkbox" id="check" class="check">
@@ -137,14 +141,27 @@
         </div>
     </div>
 
-    <section class="photo-grid">
+    <button class="btn" on:click={() => window.alert('add me brend')}>click to add product</button>
+
+    {#if dashInfo.products.length === 0}
+        
+        <div class="null">
+            <h4>nothing added yet</h4>
+        </div>
+
+    {:else}
+
+        <section class="photo-grid">
     
-        {#each Array(3) as _}
-            <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a fucking plane">
-            <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a blue orange">
-            <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="sea">
+            {#each Array(3) as _}
+                <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a fucking plane">
+                <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a blue orange">
+                <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="sea">
             {/each}
-   </section>
+
+        </section>
+
+    {/if}
 
     <Product bind:this={product}>
     </Product>
@@ -290,7 +307,9 @@
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 1px;
         column-gap: 1px;
-        margin-top: .3rem;
+        margin-top: .2rem;
+        background: white;
+        padding: .05rem;
     }
 
     .photo-grid img {
@@ -383,6 +402,45 @@
     .drop li:hover {
 	background-color: #ddd;
     }
+
+    .btn {
+        padding: .5rem;
+        border-radius: .5rem;
+        margin-top: .2rem;
+        cursor: pointer;
+        background-color: #2F2F2F;
+        color: white;
+        border: 1px solid #2F2F2F;
+        transition: all 200ms;
+    }
+
+    .btn:hover {
+        background-color: white;
+        color: #2F2F2F;
+        border: 1px solid white;
+    }
+
+    .the-logo {
+        font-family: 'Yuji Syuku', 'Share Tech Mono', monospace;
+        font-weight: 600;
+        line-height: 1rem;
+        font-size: 30px;
+        color: #2F2F2F;
+        transition: all 200ms;
+    }
+
+    .the-logo:hover {
+        color: purple;
+    }
+
+    .null {
+        background: white;
+        margin: .2rem 0;
+        padding: 2rem;
+        border-radius: .5rem;
+        text-align: center;
+    }
+
 
     /* if a change to flex-box is needed */
     /**/
