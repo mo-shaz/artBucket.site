@@ -18,6 +18,10 @@
     import EditProfile from "../components/EditProfile.svelte"
     let editProfile
 
+    // the add product component
+    import UploadProduct from "../components/UploadProduct.svelte"
+    let uploadProduct
+
     // API URL and Profile Picture URL
     import { 
         api, 
@@ -27,7 +31,8 @@
         reactiveStoreName,
         reactiveTitle,
         reactiveWhatsapp,
-        reactiveInstagram
+        reactiveInstagram,
+        productsArray
     } from "../stores.js"
 
     const postDetails = {
@@ -68,6 +73,7 @@
             $reactiveTitle = dashInfo.title
             $reactiveWhatsapp = dashInfo.whatsapp
             $reactiveInstagram = dashInfo.instagram
+            $productsArray = dashInfo.products
 
         } else {
 
@@ -118,7 +124,7 @@
     <div class="info">
         <img class="img" src={$profileUrl} alt="user-profile-picture">
             <div class="posts">
-                <h3>{dashInfo.products.length}</h3>
+                <h3>{$productsArray.length}</h3>
                 <span>products</span>
             </div>
             <div class="visits">
@@ -141,9 +147,9 @@
         </div>
     </div>
 
-    <button class="btn" on:click={() => window.alert('add me brend')}>click to add product</button>
+    <button class="btn" on:click={() => uploadProduct.show()}>click to add product</button>
 
-    {#if dashInfo.products.length === 0}
+    {#if $productsArray.length === 0}
         
         <div class="null">
             <h4>nothing added yet</h4>
@@ -171,6 +177,9 @@
 
     <InviteModal bind:this={inviteModal}>
     </InviteModal>
+
+    <UploadProduct bind:this={uploadProduct}>
+    </UploadProduct>
 
     </main>
 

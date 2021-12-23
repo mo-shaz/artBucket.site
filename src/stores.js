@@ -13,6 +13,12 @@ export let reactiveWhatsapp = writable("")
 export let reactiveInstagram = writable("")
 export let reactiveId = writable(0)
 
+// A reactive variable for the add product image
+export let addProductImage = writable("")
+
+// A reactive array of products
+export let productsArray = writable([])
+
 // The email invite string, used by Join and Register routes
 export const emailInvite = writable(sessionStorage.getItem("emailInvite") || "")
 

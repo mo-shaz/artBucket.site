@@ -37,6 +37,16 @@
 
     // an object as the server response
     let serverResponse: object
+    
+    // copy the details
+    profileDetails = {
+        userName: $reactiveUserName,
+        storeName: $reactiveStoreName,
+        title: $reactiveTitle,
+        whatsapp: $reactiveWhatsapp,
+        instagram: $reactiveInstagram
+    }
+
 
     // function to hide and show the modals on click
     export function hide() {
@@ -44,15 +54,6 @@
     }
 
     export function show() {
-        // copy the details
-        profileDetails = {
-            userName: $reactiveUserName,
-            storeName: $reactiveStoreName,
-            title: $reactiveTitle,
-            whatsapp: $reactiveWhatsapp,
-            instagram: $reactiveInstagram
-        }
-
         // show the Modal
         shown = true
 
