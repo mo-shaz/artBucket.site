@@ -5,7 +5,7 @@
 
     // individual Product Modal
     import Product from "../components/Product.svelte"
-    let product
+    let productModal
 
     // Loading Modal
     import Loading from "../components/Loading.svelte"
@@ -35,12 +35,6 @@
         productsArray
     } from "../stores.js"
 
-    const postDetails = {
-        name: "a Blue Orange",
-        price: "healthy kidney",
-        desc: "nothing fancy, not tasty, diarrhea",
-        image: "yay"
-    }
 
     // Dashboard info
     let dashInfo: object
@@ -73,7 +67,7 @@
             $reactiveTitle = dashInfo.title
             $reactiveWhatsapp = dashInfo.whatsapp
             $reactiveInstagram = dashInfo.instagram
-            $productsArray = dashInfo.products
+            $productsArray = dashInfo.products.reverse()
 
         } else {
 
@@ -159,17 +153,17 @@
 
         <section class="photo-grid">
     
-            {#each Array(3) as _}
-                <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a fucking plane">
-                <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="a blue orange">
-                <img class="click" on:click={ product.show(postDetails) } src='https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' alt="sea">
+            {#each $productsArray as product}
+
+                <img src={product.image} alt="a product" on:click={() => productModal.show(product.product_id)}>
+
             {/each}
 
         </section>
 
     {/if}
 
-    <Product bind:this={product}>
+    <Product bind:this={productModal}>
     </Product>
 
     <EditProfile bind:this={editProfile}>
@@ -317,8 +311,9 @@
         grid-gap: 1px;
         column-gap: 1px;
         margin-top: .2rem;
-        background: white;
+        background: rgba(255, 255, 255, .8);
         padding: .05rem;
+        border-radius: .25rem;
     }
 
     .photo-grid img {
@@ -327,6 +322,7 @@
         height: 125px;
         object-fit: cover;
         background: center / cover no-repeat;
+        border-radius: .25rem;
     }
 
 

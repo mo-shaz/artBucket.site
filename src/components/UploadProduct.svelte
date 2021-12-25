@@ -121,7 +121,7 @@
         if (productDetails.image.trim().length === 0) errors.image = "an image is necessary"
 
         // and the description needs to be longer
-        if (productDetails.description.trim().length < 64) {
+        if (productDetails.description.trim().length > 32 && productDetails.description.trim().length < 64) {
             
             errors.description = ""
             borderError.description = ""
@@ -133,6 +133,13 @@
             // if it is a number, then no error
             errors.price = ""
             borderError.price = ""
+
+            // check if value exceeds limit
+            if (Number(productDetails.price) > 32767) {
+
+                errors.price = "too expensive"
+                borderError.price = "border-error"
+            }
 
         } else {
 
@@ -158,8 +165,18 @@
             // hi APi
             serverResponse = await addThisProduct(productDetails)
 
-            // if the response is success, then hide the modal
-            if (serverResponse.success) return hide()
+            // if the response is success, add the product to the array and hide the modal
+            if (serverResponse.success) {
+
+                // append the product to the array
+                $productsArray.unshift(serverResponse.success)
+
+                // this is for svelte :p
+                $productsArray = $productsArray
+
+                // hide the Modal
+                return hide()
+            }
         }
 
         return console.log("Hello Dev")
@@ -220,7 +237,7 @@
                 <input type="text" class="input-box {borderError.price}" bind:value={productDetails.price}>
 
                 <div class="buttons">
-                    <input class="btn" type="submit" value="update">
+                    <input class="btn" type="submit" value="add">
                     <input class="btn btn-cancel" type="button" value="cancel" on:click={() => hide()}>
                 </div>
 
@@ -269,7 +286,7 @@
         width: 100%;
     }
 
-    form-body {
+    .form-body {
         display: flex;
         flex-direction: column;
         justify-content: center;
