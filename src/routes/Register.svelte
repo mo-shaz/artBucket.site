@@ -17,7 +17,7 @@
     email = $emailInvite;
 
     // The stores url and api variables
-    import { api } from "../stores.js"
+    import { api, checkSpaces } from "../stores.js"
 
     // The object that holds the form values
     let formValue = {
@@ -108,7 +108,7 @@
             border[value] = ""
 
             // Length Check
-            if (formValue[value].length < 4) errors[value] = "too short"
+            if (formValue[value].trim().length < 4) errors[value] = "too short"
             if (formValue[value].length > 32) errors[value] = "too long"
         }
         
@@ -117,6 +117,10 @@
         
         // Check if the password fields match
         if (formValue.password !== formValue.confirmPassword) errors.confirmPassword = "mismatch"
+
+        // Additional check for spaces
+        if (!checkSpaces(formValue.storeName)) errors.storeName = "no spaces"
+        if (!checkSpaces(formValue.password)) errors.password = "no spaces"
 
         // Logic to make sure there are no errors before passing the data to server
         let noErrorFlag = 0

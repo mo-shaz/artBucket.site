@@ -4,7 +4,7 @@
     let code: string;
 
     // The stored url and stored api
-    import { api } from "../stores.js"
+    import { api, checkSpaces } from "../stores.js"
 
     // The stored variable
     import { emailInvite } from "../stores.js"
@@ -31,7 +31,7 @@
             responseModal = ""
             
             // Input lenght check 
-            if (code === undefined || code.length < 4 || code.length > 32) return border = "error" 
+            if (code === undefined || code.length < 4 || code.length > 32 || !checkSpaces(code)) return border = "error" 
     
             modal.show()
 

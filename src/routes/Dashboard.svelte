@@ -122,8 +122,8 @@
                 <span>products</span>
             </div>
             <div class="visits">
-                <h3>101</h3>
-                <span>visits</span>
+                <h3>{dashInfo.connections}</h3>
+                <span>connects</span>
             </div>
     </div>
     <div class="contact">

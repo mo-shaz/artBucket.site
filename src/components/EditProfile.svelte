@@ -14,6 +14,7 @@
     // API and the reactive profile info from the store
     import { 
         api, 
+        checkSpaces,
         reactiveId,
         profileUrl,
         reactiveStoreName,
@@ -51,6 +52,32 @@
     // function to hide and show the modals on click
     export function hide() {
         shown = false
+
+        // reset everything on cancel
+        profileDetails = {
+            userName: $reactiveUserName,
+            storeName: $reactiveStoreName,
+            title: $reactiveTitle,
+            whatsapp: $reactiveWhatsapp,
+            instagram: $reactiveInstagram
+        }
+
+        errors = {
+                userName: "",
+                storeName: "",
+                title: "",
+                whatsapp: "",
+                instagram: ""
+            }
+
+        borderError = {
+                userName: "",
+                storeName: "",
+                title: "",
+                whatsapp: "",
+                instagram: ""
+            }
+
     }
 
     export function show() {
@@ -109,12 +136,17 @@
             borderError[values] = ""
 
             // check the lengths of input
-            if (profileDetails[values].length < 4) errors[values] = "too short"
+            if (profileDetails[values].trim().length < 4) errors[values] = "too short"
             if (profileDetails[values].length > 32) errors[values] = "too long"
         }
         
         // the profile picture do not need to be checked and should not have error
         errors.profile = "" 
+
+        // store-name should not have spaces
+        if (!checkSpaces(profileDetails.storeName)) errors.storeName = "no spaces"
+        if (!checkSpaces(profileDetails.whatsapp)) errors.whatsapp = "no spaces"
+        if (!checkSpaces(profileDetails.instagram)) errors.instagram = "no spaces"
 
         // a variable to indicate if there are no errors at all
         let errorFlag = 0

@@ -100,15 +100,15 @@
     .btn {
         width: 48%;
         color: white;
-        background-color: teal;
-        border: 1px solid teal;
+        background-color: tomato;
+        border: 1px solid tomato;
         border-radius: .5rem;
         transition: all 200ms;
     }
     
     .btn-cancel {
-        background-color: tomato;
-        border: 1px solid tomato;
+        background-color: #2F2F2F;
+        border: 1px solid #2F2F2F;
     }
 
     .btn:hover {

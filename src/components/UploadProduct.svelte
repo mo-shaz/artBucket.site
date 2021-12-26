@@ -177,9 +177,11 @@
                 // hide the Modal
                 return hide()
             }
+
+            console.log("Hello Dev")
+            return console.log(serverResponse) 
         }
 
-        return console.log("Hello Dev")
     }
 
 

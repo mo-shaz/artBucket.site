@@ -81,6 +81,11 @@
 
     export function hide() {
         shown = false
+
+        // reset the values
+        formValue.inviteEmail = ""
+        errorMessage = ""
+        border = ""
     }
     
 </script>

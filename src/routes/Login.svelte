@@ -1,7 +1,7 @@
 <script lang="ts">
 
     // The url and api variables from the store
-    import { api } from "../stores.js"
+    import { api, checkSpaces } from "../stores.js"
 
     // Before anything, make a fetch request to API to invalidate the current session
     try {
@@ -58,11 +58,12 @@
             
             // check the lengths
             if (formValue[value].length < 4) errors[value] = "too short" 
-            if (formValue[value].length > 32) errors[value] = "too long" 
+            if (formValue[value].length > 32) errors[value] = "too long"
         }
         
         // password length should be atleast 8 characters
         if (formValue.password.length < 8) errors.password = "too short"
+        if (!checkSpaces(formValue.password)) errors.password = "no spaces"
 
         // check if the response is a valid email
         const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
