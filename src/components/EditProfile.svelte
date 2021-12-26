@@ -11,6 +11,10 @@
     import ImageUpload from "./UploadImage.svelte"
     let imageUpload
 
+    // Delete Profile Modal
+    import DeleteProfile from "./DeleteProfile.svelte"
+    let deleteProfile
+
     // API and the reactive profile info from the store
     import { 
         api, 
@@ -223,6 +227,9 @@
                 </div>
 
             </form>
+
+            <button class="btn btn-delete" on:click={() => deleteProfile.show()}>delete account</button>
+
         </div>
     </div>
 
@@ -243,6 +250,8 @@
             <Loading/>
         {/if}
     </Modal>
+
+    <DeleteProfile bind:this={deleteProfile} />
 
 {/if}
 
@@ -314,6 +323,12 @@
     .btn-cancel {
         background-color: tomato;
         border: 1px solid tomato;
+    }
+
+    .btn-delete {
+        width: 100%;
+        background-color: orangered;
+        border: 1px solid orangered;
     }
 
     .btn:hover {
