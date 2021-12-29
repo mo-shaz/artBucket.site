@@ -4,10 +4,13 @@
     import { tweened } from 'svelte/motion'
 
     // Animate the count from 0 to the value
-    let artistCount = tweened(0, { duration: 1000 });
+    let creatorCount = tweened(0, { duration: 1000 });
+    let productCount = tweened(0, { duration: 1000 });
     
     function changeCount(newCount) {
-        artistCount.set(newCount)
+
+        creatorCount.set(newCount.creatorCount)
+        productCount.set(newCount.productCount)
     }
 
     // Function to fetch the user count from the API
@@ -18,14 +21,13 @@
             const response = await fetch('http://localhost:8080/', {
                 method: 'GET',
                 mode: 'cors',
-                headers: { 'Content-Type': 'application/json' }
             })
     
             if (response.ok) {
 
                 // Make sure the response is a success
                 const data = await response.json()
-                const responseCount = Number(data.success) - 1
+                const responseCount = await data.success
                 changeCount(responseCount)
 
             } else {
@@ -55,7 +57,7 @@
             <h4>an open-source, community-driven and collabarative database of talented artists and craft-creators around you</h4>
         </div>
         <div class="marketplace" id="stats">
-            <p>currently home to <strong>{$artistCount.toFixed(0)}</strong> artists</p>
+            <p>currently home to <strong>{$creatorCount.toFixed(0)}</strong> artists and <strong>{$productCount.toFixed(0)}</strong> products</p>
             <a href="/marketplace" class="button">explore the marketplace</a>
         </div>
         <div class="link-container">
@@ -161,6 +163,11 @@
     .marketplace {
         display: flex;
         flex-direction: column;
+        margin: 13px 10% 13px 10%;
+    }
+
+    .marketplace p {
+        text-align: center;
     }
 
     .invite {

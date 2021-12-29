@@ -116,7 +116,7 @@
         </div>
     </div>
     <div class="info">
-        <img class="img" src={$profileUrl} alt="user-profile-picture">
+        <img class="img" src={$profileUrl} alt="user-profile">
             <div class="posts">
                 <h3>{$productsArray.length}</h3>
                 <span>products</span>
@@ -155,7 +155,7 @@
     
             {#each $productsArray as product}
 
-                <img src={product.image} alt="a product" on:click={() => productModal.show(product.product_id)}>
+                <img src={product.image} class="click" alt="a product" on:click={() => productModal.show(product.product_id)}>
 
             {/each}
 
@@ -397,6 +397,7 @@
 	padding: .5rem;
 	border-radius: .5rem;
 	cursor: pointer;
+        user-select: none;
     }
 
     .drop a{
@@ -417,9 +418,10 @@
         color: white;
         border: 1px solid #2F2F2F;
         transition: all 200ms;
+        user-select: none;
     }
 
-    .btn:hover {
+    .btn:hover, .btn:focus {
         background-color: white;
         color: #2F2F2F;
         border: 1px solid white;

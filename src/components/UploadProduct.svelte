@@ -121,7 +121,7 @@
         if (productDetails.image.trim().length === 0) errors.image = "an image is necessary"
 
         // and the description needs to be longer
-        if (productDetails.description.trim().length > 32 && productDetails.description.trim().length < 64) {
+        if (productDetails.description.trim().length > 32 && productDetails.description.trim().length < 128) {
             
             errors.description = ""
             borderError.description = ""

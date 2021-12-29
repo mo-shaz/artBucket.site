@@ -179,6 +179,9 @@
                 $reactiveTitle = serverResponse.success.title
                 $reactiveWhatsapp = serverResponse.success.whatsapp
                 $reactiveInstagram = serverResponse.success.instagram
+
+                // and close the modal
+                hide()
             }
          
         }
@@ -191,7 +194,7 @@
     <div class="modal-wrap" transition:fade="{{ duration: 100 }}">
         <div class="modal" transition:fly="{{ y: 100, duration: 200 }}">
             <div class="profile-view">
-                <img class="profile-img" src={$profileUrl} alt="profile picture" on:click={() => imageUpload.show(uppyClient)}>
+                <img class="profile-img" src={$profileUrl} alt="profile" on:click={() => imageUpload.show(uppyClient)}>
                 <div class="inside-view"><p>click on the image to change your profile picture.</p></div>
             </div>
             <form class="form-body" on:submit|preventDefault={ handleSubmit(profileDetails) }>
@@ -236,11 +239,7 @@
     <ImageUpload bind:this={imageUpload} />
     <Modal bind:this={modal}>
         {#if serverResponse}
-            {#if serverResponse.success}
-                <span class="tick-mark">&check;</span>
-                <h4>updated successfully</h4>
-                <button class="btn-plain" on:click={() => modal.hide()}>okay</button>
-            {:else if serverResponse.error}
+            {#if serverResponse.error}
                 <span class="cross-mark">&times;</span>
                 <h4>{serverResponse.error}</h4>
                 <button class="btn-plain" on:click={() => modal.hide()}>okay</button>

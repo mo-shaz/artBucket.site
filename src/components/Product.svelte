@@ -77,7 +77,7 @@
     <div class="modal-wrap" transition:fade="{{ duration: 100 }}">
         <div class="modal" transition:fly="{{ y: 100, duration: 200 }}">
             <div class="productInfo">
-                <img class="image" src={preDetails.image} alt="product image">
+                <img class="image" src={preDetails.image} alt="product">
                 <h3 class="name">{preDetails.name}</h3>
                 <p class="description">{preDetails.description}</p>
                 <h4 class="price">starting from: <span>&#x20b9;{preDetails.price}/-</span></h4>
@@ -141,6 +141,7 @@
     .name {
         margin: 10px;
         text-decoration: underline;
+        text-align: center;
     }
 
     .image {
