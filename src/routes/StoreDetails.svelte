@@ -24,6 +24,8 @@
         // JSONify and transfer the data to the variable
         data = await response.json()
 
+        if (data.error) return console.log("Oopsies")
+
         // set the links
         whatsapp = `https://wa.me/${data.success.whatsapp}` 
         instagram = `https://instagram.com/${data.success.instagram}` 
@@ -32,6 +34,18 @@
     }
 
     getDetails();
+
+    // function that records the connections througth the site
+    const getConnection = (storeName) => {
+
+        // fetch the API
+        fetch(`${$api}/connects/${storeName}`, {
+            method: 'GET',
+            mode: 'cors'
+        })
+
+        // the response is not needed
+    }
 
     // funtion that redirects to the product details page
     const productClick = (id) => {
@@ -65,11 +79,11 @@
             <div class="contact-container">
                 <div class="contact">
                     <img class="logo" src="../static/whatsapp.svg" alt="whatsapp logo">
-                    <a style="color: teal;" href={whatsapp}>{data.success.whatsapp}</a>
+                        <a style="color: teal;" href={whatsapp} on:click={() => getConnection(data.success.storeName)}>{data.success.whatsapp}</a>
                 </div>
                 <div class="contact">
                     <img class="logo" src="../static/instagram.svg" alt="instagram logo">
-                    <a style="color: #E1306C;" href={instagram}>{data.success.instagram}</a>
+                    <a style="color: #E1306C;" href={instagram} on:click={() => getConnection(data.success.storeName)}>{data.success.instagram}</a>
                 </div>
             </div>
 
@@ -91,7 +105,34 @@
             {/if}
 
         {:else}
-            nope
+
+            <div class="skeleton skeleton-text"></div>
+            <div class="store-card">
+                <div class="skeleton image"></div>
+                <div class="details">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+            <div class="contact-container">
+                <div class="contact">
+                    <div class="skeleton logo"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="contact">
+                    <div class="skeleton logo"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <section class="photo-grid">
+                    {#each {length: 4} as _}
+                        <div class="skeleton image-grid"></div>
+                    {/each}
+                </section>
+            </div>
+
         {/if}
 
     </main>
@@ -161,6 +202,7 @@
     .image {
         min-width: 125px;
         max-width: 125px;
+        min-height: 125px;
         margin: .25rem;
     }
 
@@ -195,6 +237,8 @@
     }
 
     .logo {
+        min-width: 20px;
+        min-height: 20px;
         max-width: 20px;
         max-height: 20px;
         margin-bottom: .25rem;
@@ -202,6 +246,7 @@
 
     .null-box {
         max-width: 95%;
+        min-width: 95%;
         margin: .25rem 1rem .5rem 1rem;
         padding: .5rem;
         box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
@@ -218,6 +263,7 @@
     .grid-container {
         width: 95%;
         box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+        margin-bottom: 1rem;
     }
 
     .photo-grid {
@@ -237,6 +283,35 @@
         object-fit: cover;
         background: center / cover no-repeat;
         cursor: pointer;
+    }
+
+    .skeleton {
+        animation: skeleton-loading 1s linear infinite alternate;
+    }
+
+    .skeleton-text {
+        min-width: 95%;
+        height: 1rem;
+        margin: .5rem;
+        border-radius: .125rem;
+    }
+
+    .image-grid {
+        display: block;
+        width: 100%;
+        height: 125px;
+        object-fit: cover;
+        background: center / cover no-repeat;
+        cursor: pointer;
+    }
+
+    @keyframes skeleton-loading {
+        0% {
+            background-color: hsl(200, 20%, 70%);
+        }
+        100% {
+            background-color: hsl(200, 20%, 95%)
+        }
     }
 
     @media screen and (min-width: 500px) {

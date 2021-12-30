@@ -26,6 +26,8 @@
 
         details = await data
 
+        if (details.error) return console.log("Oopsie")
+
         // construct the links
         whatsapp = `https://wa.me/${data.success.storeDetails.whatsapp}/text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20one%20of%20your%20products%20on%20artBucket`
         instagram = `https://instagram.com/${data.success.storeDetails.instagram}`
@@ -37,6 +39,17 @@
     // Make the call
     getDetails(id);
 
+    // function that records the connections througth the site
+    const getConnection = async (storeName) => {
+
+        // fetch the API
+        await fetch(`${$api}/connects/${storeName}`, {
+            method: 'GET',
+            mode: 'cors'
+        })
+
+        // the response is not needed
+    }
 
 </script>
 
@@ -64,11 +77,11 @@
             <div class="contact-container">
                 <div class="contact">
                     <img class="logo" src="../static/whatsapp.svg" alt="whatsapp logo">
-                    <a style="color: teal" href={whatsapp}>{details.success.storeDetails.whatsapp}</a>
+                        <a style="color: teal" href={whatsapp} on:click={() => getConnection(details.success.storeDetails.name)}>{details.success.storeDetails.whatsapp}</a>
                 </div>
                 <div class="contact">
                     <img class="logo" src="../static/instagram.svg" alt="instagram logo">
-                    <a style="color: #E1306C" href={instagram}>{details.success.storeDetails.instagram}</a>
+                    <a style="color: #E1306C" href={instagram} on:click={() => getConnection(details.success.storeDetails.name)}>{details.success.storeDetails.instagram}</a>
                 </div>
             </div>
         {:else}

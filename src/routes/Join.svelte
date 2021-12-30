@@ -91,7 +91,7 @@
         <br>
         <p>currently we are only able to on-board new creators via invite. We hope to make changes to this in the near future.</p>
         <br>
-        <a href="/invites">how to get an invite?</a>
+        <a href="/invites" style="color: turquoise;">how to get an invite?</a>
 
         </div>
         <div class="input">
