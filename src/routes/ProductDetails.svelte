@@ -35,7 +35,7 @@
     }
 
     // Make the call
-    getDetails(id)
+    getDetails(id);
 
 
 </script>
@@ -72,7 +72,13 @@
                 </div>
             </div>
         {:else}
-            <h4>no</h4>
+            <div class="product-details">
+                <div class="image skeleton"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
         {/if}
 
     </main>
@@ -110,7 +116,7 @@
         padding: .5rem;
         width: 100%;
         text-align: center;
-        border-radius: 6px;
+        border-radius: 6px 6px 3px 3px;
     }
 
     .heading a {
@@ -166,6 +172,8 @@
 
     .description {
         margin: .5rem auto 1rem .75rem;
+        font-style: italic;
+        white-space: pre-line;
     }
 
     .contact-container {
@@ -189,6 +197,26 @@
         max-width: 20px;
         max-height: 20px;
         margin-bottom: .25rem;
+    }
+
+     .skeleton {
+        animation: skeleton-loading 1s linear infinite alternate;
+    }
+
+    .skeleton-text {
+        width: 300px;
+        height: 1rem;
+        margin: .5rem;
+        border-radius: .125rem;
+    }
+
+    @keyframes skeleton-loading {
+        0% {
+            background-color: hsl(200, 20%, 70%);
+        }
+        100% {
+            background-color: hsl(200, 20%, 95%)
+        }
     }
 
     @media screen and (min-width: 500px) {

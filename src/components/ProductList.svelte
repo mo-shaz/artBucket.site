@@ -108,11 +108,24 @@
 
     .name {
         margin-bottom: .25rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1; 
+        -webkit-box-orient: vertical;
     }
 
     .description {
         font-size: 95%;
         font-weight: 500;
+        white-space: pre-line;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+        line-clamp: 3; 
+        -webkit-box-orient: vertical;
     }
 
     .line-container {

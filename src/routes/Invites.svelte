@@ -7,11 +7,11 @@
     <div class="content">
         <h2>getting invites</h2>
 
-        <p>invites can be given out by creators who are already registered in <span>artBucket.com</span>. If you need an invite, try contacting them for referrals.</p>
+        <p>invites can be given out by creators who are already registered in <a href="/">artBucket</a>. If you need an invite, try contacting them for referrals.</p>
 
-        <a href="/creators" class="btn">explore creators</a>
+        <a href="/creators" class="btn" style="color: black;">explore creators</a>
 
-        <p>if you are unable to get referrals, don't worry. You can contact us directly at <span>artistsaroundyou@gmail.com</span> with an attached link to the profile or page of your business that is on any of the social platforms you're on.</p>
+        <p>if you are unable to get referrals, don't worry. You can contact us directly at <a href="#">artistsaroundyou@gmail.com</a> with an attached link to the profile or page of your business that is on any of the social platforms you're on.</p>
     </div>
 
 </body>
@@ -47,7 +47,7 @@
 
     .content h2 {
         text-align: center;
-        color: yellow;
+        color: violet;
         margin: 1rem;
     }
 
@@ -55,8 +55,8 @@
         margin: 1rem;
     }
 
-    .content span {
-        color: violet;
+    .content a {
+        color: yellow;
     }
 
     .btn {
@@ -64,14 +64,12 @@
         border-radius: 10px;
         margin: 1rem;
         cursor: pointer;
-        color: black;
         background-color: yellow;
         transition: all 200ms;
     }
 
     .btn:hover {
-        background-color: black;
-        color: violet;
+        background-color: violet;
     }
 
 </style>

@@ -33,6 +33,7 @@
         <div class="heading">
 
             <h3 style="margin-bottom: .25rem;">marketplace</h3>
+            <p>explore art and craft</p>
 
             <div class="nav-container">
                 <span class="generic {pToggle}" on:click={() => toProducts()}>products</span>
@@ -92,6 +93,11 @@
         padding: 1rem;
         border-radius: .5rem;
         margin: .25rem 0;
+    }
+
+    .heading p {
+        text-align: center;
+        margin-bottom: .5rem;
     }
 
     .nav-container {

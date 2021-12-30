@@ -129,7 +129,7 @@
     <div class="contact">
         <div class="description">
             <h4>{$reactiveUserName}</h4>
-            <p>{$reactiveTitle}</p>
+            <p style="white-space: pre-line;">{$reactiveTitle}</p>
         </div>
         <div class="logo">
             <img class="wapp-logo" src="../static/whatsapp.svg" alt="whatsapp logo">

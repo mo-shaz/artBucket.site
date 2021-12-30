@@ -212,7 +212,7 @@
                 <label for="title">title
                     <span class="error">{errors.title}</span>
                 </label>
-                <input type="text" class="input-box {borderError.title}" bind:value={profileDetails.title}>
+                <textarea type="text" class="input-box {borderError.title}" bind:value={profileDetails.title}></textarea>
 
                 <label for="whatsapp">whatsapp
                     <span class="error">{errors.whatsapp}</span>

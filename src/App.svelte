@@ -10,6 +10,7 @@
     import Dashboard from "./routes/Dashboard.svelte"
     import Market from "./routes/Market.svelte"
     import ProductDetails from "./routes/ProductDetails.svelte"
+    import StoreDetails from "./routes/StoreDetails.svelte"
 
 </script>
 
@@ -45,6 +46,10 @@
 
     <Route path='/product/:id' let:params>
         <ProductDetails id={params.id} />
+    </Route>
+
+    <Route path='/store/:name' let:params>
+        <StoreDetails name={params.name} />
     </Route>
 
     <Route path='*'>

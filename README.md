@@ -1,4 +1,4 @@
-# FrontEnd for artBucket.com
+# FrontEnd for artBucket
 
 JAMStack APP
 

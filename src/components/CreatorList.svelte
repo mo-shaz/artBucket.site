@@ -24,10 +24,10 @@
     // call the server
     fetchData()
 
-    const clickHandler = (id) => {
+    const clickHandler = (name) => {
 
         // go to their page
-        window.location.assign(`/creator/${id}`)
+        window.location.assign(`/store/${name}`)
     }
 
 
@@ -52,10 +52,10 @@
 {:else}
 
     {#each data.success as creator}
-        <div class="card-container" on:click={() => clickHandler(creator.id)}>
+        <div class="card-container" on:click={() => clickHandler(creator.store_name)}>
             <img src={creator.profile} class="image" alt="creator">
             <div class="line-container">
-                <h3>{creator.store_name}</h3>
+                <h3 class="store-name">{creator.store_name}</h3>
                 <h5 class="name">({creator.user_name})</h5>
                 <p class="description">{creator.title}</p>
             </div>
@@ -93,11 +93,29 @@
 
     .name {
         margin-bottom: .25rem;
+        font-family: 'Yuji Syuku';
+    }
+
+    .store-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1; 
+        -webkit-box-orient: vertical;
     }
 
     .description {
         font-size: 95%;
         font-weight: 500;
+        font-style: italic;
+        white-space: pre-line;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4; /* number of lines to show */
+        line-clamp: 4; 
+        -webkit-box-orient: vertical;
     }
 
     .line-container {

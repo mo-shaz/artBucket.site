@@ -53,7 +53,7 @@
 <body>
     <main class="container">
         <div id="heading">
-            <h1>artBucket.com</h1>
+            <h1>artBucket</h1>
             <h4>an open-source, community-driven and collabarative database of talented artists and craft-creators around you</h4>
         </div>
         <div class="marketplace" id="stats">

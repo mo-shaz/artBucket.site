@@ -231,7 +231,7 @@
                 <label for="description">description
                     <span class="error">{errors.description}</span>
                 </label>
-                <input type="text" class="input-box {borderError.description}" bind:value={productDetails.description}>
+                <textarea type="text" class="input-box {borderError.description}" bind:value={productDetails.description}></textarea>
 
                 <label for="price">price
                     <span class="error">{errors.price}</span>
