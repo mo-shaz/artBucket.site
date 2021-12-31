@@ -2,7 +2,7 @@ import { writable, readable } from 'svelte/store'
 
 
 // The server url
-export const api = readable("https://artbucket-server.herokuapp.com/")
+export const api = readable("https://artbucket-server.herokuapp.com")
 
 // Some Reactive variables for the Dashboard
 export let profileUrl = writable("")

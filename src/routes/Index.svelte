@@ -2,6 +2,7 @@
 
     // For animation
     import { tweened } from 'svelte/motion'
+    import { api } from '../stores.js'
 
     // Animate the count from 0 to the value
     let creatorCount = tweened(0, { duration: 1000 });
@@ -18,7 +19,7 @@
 
         try {
 
-            const response = await fetch('http://localhost:8080/', {
+            const response = await fetch(`${$api}`, {
                 method: 'GET',
                 mode: 'cors',
             })
