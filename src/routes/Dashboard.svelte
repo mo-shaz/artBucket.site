@@ -78,10 +78,8 @@
 
     }
 
-    ///////////////////////////////////
-    //         DEV-DEPENDANCY       //
-    /////////////////////////////////
-    setTimeout(() => fetchDash(), 1000)
+    // fetch the dashboard data
+    fetchDash()
 
 </script>
 

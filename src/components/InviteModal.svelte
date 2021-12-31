@@ -114,7 +114,7 @@
         {:else if serverResponse.error}
             <h2>oops</h2>
             <p class="cross-mark">&times;</p>
-            <p>looks like {serverResponse.error}</p>
+            <p>{serverResponse.error}</p>
         {:else}
             <div class="loading-div">
                 <h3>running some checks</h3>

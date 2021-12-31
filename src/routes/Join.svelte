@@ -54,22 +54,16 @@
                 const mailRegExp = new RegExp(pattern)
 
                 // If invalid, set the Modal to show message
-                if (!mailRegExp.test(response.emailInvite)) return setTimeout(() => { responseModal = "NOT" }, 1500)
-                
+                if (!mailRegExp.test(response.emailInvite)) return responseModal = "NOT"
                 
                 // Set the code as the session-storage variable for the register page to access
                 $emailInvite = response.emailInvite 
     
-                setTimeout(() => {
-                    // Set the modal message accordingly
-                    responseModal = "OK"
+                responseModal = "OK"
 
-                    // Redirect to the register page
-                    setTimeout(() => window.location.replace('/register'), 2000)
+                // Redirect to the register page
+                setTimeout(() => window.location.replace('/register'), 2000)
                     
-                    }, 1500)
-                
-
             } else {
                 
                 // Alert the user if some other error occurs

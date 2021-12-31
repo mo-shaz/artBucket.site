@@ -102,15 +102,15 @@
             response = await response.json()
 
             // If login succeeds, redirect
-            if (response.success) setTimeout(() => { window.location.replace('/dashboard') }, 1000) 
+            if (response.success) return window.location.replace('/dashboard') 
 
             // If login fails, show warning
-            if (response.error) setTimeout(() => { 
+            if (response.error) { 
                 responseMessage = response.error
-                responseModal = "NOT" }, 1500) 
+                responseModal = "NOT"  
             
+            }
         }
-        
     }
 
 </script>

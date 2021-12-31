@@ -73,21 +73,14 @@
             if (data.error) {
                 // Show message after a short animation delay
                 responseMessage = data.error
-                setTimeout(() => { response = "NOT" }, 1500)
+                response = "NOT"
 
             } else if (data.success) {
 
-                setTimeout(() => { 
-                // Show message after a short animation delay
-                    response = "OK" 
+                response = "OK" 
 
                     // Redirect to login
-                    setTimeout(() => { window.location.replace('/login') 
-
-                    }, 2000)
-
-                }, 1500)
-
+                setTimeout(() =>  window.location.replace('/login') , 1500)
             }
 
         }

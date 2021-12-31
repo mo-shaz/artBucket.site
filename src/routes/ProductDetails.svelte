@@ -29,7 +29,7 @@
         if (details.error) return console.log("Oopsie")
 
         // construct the links
-        whatsapp = `https://wa.me/${data.success.storeDetails.whatsapp}/text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20one%20of%20your%20products%20on%20artBucket`
+        whatsapp = `https://wa.me/${data.success.storeDetails.whatsapp}`
         instagram = `https://instagram.com/${data.success.storeDetails.instagram}`
         storeLink = `/store/${data.success.storeDetails.name}`
 
