@@ -9,7 +9,7 @@
 
         <p>invites can be given out by creators who are already registered in <a href="/">artBucket</a>. If you need an invite, try contacting them for referrals.</p>
 
-        <a href="/creators" class="btn" style="color: black;">explore creators</a>
+        <a href="/marketplace" class="btn" style="color: black;">explore creators</a>
 
         <p>if you are unable to get referrals, don't worry. You can contact us directly at <a href="mailto:artistsaroundyou@gmail.com">artistsaroundyou@gmail.com</a> with an attached link to the profile or page of your business that is on any of the social platforms you're on.</p>
     </div>
