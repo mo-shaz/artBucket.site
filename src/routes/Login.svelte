@@ -58,7 +58,7 @@
             
             // check the lengths
             if (formValue[value].length < 4) errors[value] = "too short" 
-            if (formValue[value].length > 32) errors[value] = "too long"
+            if (formValue[value].length > 64) errors[value] = "too long"
         }
         
         // password length should be atleast 8 characters

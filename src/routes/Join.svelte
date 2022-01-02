@@ -31,7 +31,7 @@
             responseModal = ""
             
             // Input lenght check 
-            if (code === undefined || code.length < 4 || code.length > 32 || !checkSpaces(code)) return border = "error" 
+            if (code === undefined || code.length < 4 || code.length > 64 || !checkSpaces(code)) return border = "error" 
     
             modal.show()
 

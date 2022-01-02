@@ -6,6 +6,9 @@
     // The API URL
     import { api } from "../stores.js"
 
+    // The 404 page
+    import NotFound from "./NotFound.svelte"
+
     // hold data please
     let details = {}
 
@@ -84,6 +87,11 @@
                     <a style="color: #E1306C" href={instagram} on:click={() => getConnection(details.success.storeDetails.name)}>{details.success.storeDetails.instagram}</a>
                 </div>
             </div>
+
+        {:else if details.error}
+        
+            <NotFound/>
+
         {:else}
             <div class="product-details">
                 <div class="image skeleton"></div>

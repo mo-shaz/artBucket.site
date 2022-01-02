@@ -6,6 +6,9 @@
     // the API URL
     import { api } from "../stores.js"
 
+    // The 404 page
+    import NotFound from "./NotFound.svelte"
+
     // data from the server
     let data = {}
 
@@ -103,6 +106,10 @@
                     <img class="null-logo" src="../static/blogging.svg" alt="null logo">
                 </div>
             {/if}
+
+        {:else if data.error}
+
+            <NotFound/>
 
         {:else}
 

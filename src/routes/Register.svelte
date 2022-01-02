@@ -107,6 +107,9 @@
         
         // Additional length check for password
         if (formValue.password.length < 8) errors.password = "too short"
+
+        // email length can be upto 64
+        if (formValue.email.length > 32 && formValue.email.length < 64) errors.email = ""
         
         // Check if the password fields match
         if (formValue.password !== formValue.confirmPassword) errors.confirmPassword = "mismatch"
