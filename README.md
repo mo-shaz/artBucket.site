@@ -1,3 +1,8 @@
-# Frontend for artBucket
+#Instructions for setting up the development environment locally
 
-built using Svelte ⚡
+* git clone
+* npm install
+* npm run dev
+
+#Instructions for commiting changes
+Only make changes to the development branch
