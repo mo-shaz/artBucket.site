@@ -1,5 +1,10 @@
-# FrontEnd for artBucket
+# Instructions for setting up the local machine for development
 
-JAMStack APP
+* git clone: clones the project
+* npm install: installs the required packages
+* npm run dev: runs the dev server, will reload on file-save
 
-built using Svelte ⚡
+# Instructions for commiting changes
+
+* commit to the development branch
+
