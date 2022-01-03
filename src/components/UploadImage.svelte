@@ -2,7 +2,6 @@
 
     import Uppy from '@uppy/core'
     import { DashboardModal } from '@uppy/svelte'
-    import Instagram from '@uppy/instagram'
     import XHR from '@uppy/xhr-upload'
 
     // API End-point and Profile Pic URL
@@ -17,9 +16,6 @@
                 maxNumberOfFiles: 1,
                 allowedFileTypes: ['image/*']
             }
-        })
-        .use(Instagram, {
-            companionUrl: 'https://companion.uppy.io'
         })
         .use(XHR, {
             endpoint: `${$api}/image`,
@@ -62,7 +58,6 @@
             open={open} 
             props={{
                 onRequestCloseModal: () => open = false,
-                plugins: ['Instagram']
             }} 
         />
     </div>
